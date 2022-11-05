@@ -1,5 +1,5 @@
 # Steps Tracking Api
-This is a NodeJs baseRun node index.js command.d steps tracking api
+This is a NodeJs based steps tracking api.
 
 ## Setup Locally
 1. Clone stepstrackingapi from https://github.com/meghna512/stepstrackingapi.git

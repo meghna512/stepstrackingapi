@@ -6,9 +6,13 @@ const myCache = new NodeCache( { checkperiod: 0 } );
 
 const getSteps = async (req, res) => {
     try{
-        let steps = Steps.find({ user: req.user.uid })
+        let steps = await Steps.find({ user: req.params.userId })
         if (steps) {
-            return res.status(200).send({ "totalSteps": parseInt(steps.totalSteps) })
+            let totalSteps = 0;
+            for(let step of steps){
+                totalSteps += parseInt(step.totalSteps)
+            }
+            return res.status(200).send({ "totalSteps": totalSteps })
         } else {
             return res.status(404).send({ "error": "User doesn't exist" })
         }
@@ -40,7 +44,7 @@ const insertHandler = async (userId) =>{
     try{
         if(myCache.has( userId )){
             let value = myCache.get( userId );
-
+            console.log(value)
             const newSteps = new Steps();
             newSteps.totalSteps = value.steps;
             newSteps.startDate = value.startDate;

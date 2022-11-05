@@ -7,4 +7,4 @@ This is a NodeJs based steps tracking api.
 3. Create a .env file, similar to .env.example
 4. Run npm run start command.
 
-Please use ws://localhost:3000/?userID=<user-id> as socket url for testing purpose.
+Please use ws://localhost:3000/?userId=<user-id> as socket url for testing purpose.

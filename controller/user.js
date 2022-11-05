@@ -1,7 +1,7 @@
 const shortid = require('shortid');
 const bcrypt = require('bcrypt');
+
 const Users = require('../models/user');
-const  map = require('../helper')
 
 const loginUser = async (req, res) => {
     try {
@@ -9,7 +9,6 @@ const loginUser = async (req, res) => {
             let user;
             user = await Users.findOne({ phoneNumber: req.body.phoneNumber});
             if(user) {
-                req.session.userId = user.uid;
                 return  res.status(200).json({'message': 'Login Successful'});
             } else {
                 return res.send("Redirected to Signup Page");
@@ -20,7 +19,7 @@ const loginUser = async (req, res) => {
     } catch(err){
         return res.status(500).json({'message': err.message});
     }
-}
+};
 
 const signupUser = async (req, res) => {
     try {
@@ -30,29 +29,14 @@ const signupUser = async (req, res) => {
         newUser.uid = shortid.generate();
         newUser.password = bcrypt.hashSync(req.body.password, 10);
         await newUser.save();
-        const token = jwt.sign({ userName: newUser.userName }, process.env.SECRET);
-        return res.status(201).json({ token });
-        
+
+        return res.status(201).json({ "message": "sign up successful" });        
     }catch (err) {
         return res.status(500).json({ "message": err.message });
     }
-}
-const logoutUser = async (req, res) =>{
-    try{
-        const ws = map.get(req.session.userId);
-        console.log('Destroying session');
-        req.session.destroy(function () {
-            if (ws) ws.close();
-        });
-        return res.status(200).json({'message': "Successfully logged out"})
-    } catch(err){
-        return res.status(500).json({'message': err.message});
-    }
-}
-
+};
 
 module.exports = {
     loginUser,
-    signupUser,
-    logoutUser
+    signupUser
 }

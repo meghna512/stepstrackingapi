@@ -14,17 +14,16 @@ const StepsSchema = new Schema({
     totalSteps: {  
         type: Number,
         default: 0
-        },
+    },
     startDate:  {  
         type: Date,
         default: null        
-        },
+    },
     endDate:  {  
         type: Date,
         default: null
-        }                
-    
-});
+    }
+}, { timestamps: true });
 
 const steps = mongoose.model('step', StepsSchema);
 

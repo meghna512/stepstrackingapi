@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     phoneNumber: {
         type: String,
         required: true
-    },
+    }
 });
 
 UserSchema.index({ phoneNumber: 1 }); 
